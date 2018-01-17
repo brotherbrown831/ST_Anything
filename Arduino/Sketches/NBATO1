@@ -50,11 +50,7 @@
 
 #include <PS_TemperatureHumidity.h>  //Implements a Polling Sensor (PS) to measure Temperature and Humidity via DHT library
 #include <PS_DS18B20_Temperature.h>  //Implements a Polling Sesnor (PS) to measure Temperature via DS18B20 libraries 
-#include <PS_Water.h>        //Implements a Polling Sensor (PS) to measure presence of water (i.e. leak detector)
-#include <IS_Motion.h>       //Implements an Interrupt Sensor (IS) to detect motion via a PIR sensor
 #include <IS_Contact.h>      //Implements an Interrupt Sensor (IS) to monitor the status of a digital input pin
-#include <IS_Smoke.h>        //Implements an Interrupt Sensor (IS) to monitor the status of a digital input pin
-#include <IS_DoorControl.h>  //Implements an Interrupt Sensor (IS) and Executor to monitor the status of a digital input pin and control a digital output pin
 #include <IS_Button.h>       //Implements an Interrupt Sensor (IS) to monitor the status of a digital input pin for button presses
 #include <EX_Switch.h>       //Implements an Executor (EX) via a digital output to a relay
 #include <EX_Alarm.h>        //Implements Executor (EX)as an Alarm Siren capability via a digital output to a relay
@@ -79,9 +75,9 @@
 //******************************************************************************************
 //Define which Arduino Pins will be used for each device
 //******************************************************************************************
-#define PIN_WATER_1               A0  //NodeMCU ESP8266 only has one Analog Input Pin 'A0'
+//#define PIN_WATER_1               A0  //NodeMCU ESP8266 only has one Analog Input Pin 'A0'
 
-#define PIN_ALARM_1               D0  //SmartThings Capabilty "Alarm"
+//#define PIN_ALARM_1               D0  //SmartThings Capabilty "Alarm"
 #define PIN_SWITCH_1              D1  //SmartThings Capability "Switch"
 #define PIN_CONTACT_1             D2  //SmartThings Capabilty "Contact Sensor"
 #define PIN_BUTTON_1              D3  //SmartThings Capabilty Button / Holdable Button (Normally Open!)
@@ -145,21 +141,21 @@ void setup()
   //           to match your specific use case in the ST Phone Application.
   //******************************************************************************************
   //Polling Sensors
-  static st::PS_Water               sensor1(F("water1"), 60, 20, PIN_WATER_1, 200);
+  //static st::PS_Water               sensor1(F("water1"), 60, 20, PIN_WATER_1, 200);
   static st::PS_DS18B20_Temperature sensor2(F("temperature1"), 15, 0, PIN_TEMPERATURE_1, false, 10, 1); 
   
   //Interrupt Sensors 
   static st::IS_Contact             sensor3(F("contact1"), PIN_CONTACT_1, LOW, true);
   static st::IS_Button              sensor4(F("button1"), PIN_BUTTON_1, 1000, LOW, true, 500);
   static st::IS_Button              sensor5(F("button2"), PIN_BUTTON_2, 1000, LOW, true, 500);
-  static st::IS_Motion              sensor6(F("motion1"), PIN_MOTION_1, HIGH, false);
-  static st::IS_Smoke               sensor7(F("smoke1"), PIN_SMOKE_1, HIGH, true, 500);
+  //static st::IS_Motion              sensor6(F("motion1"), PIN_MOTION_1, HIGH, false);
+  //static st::IS_Smoke               sensor7(F("smoke1"), PIN_SMOKE_1, HIGH, true, 500);
 
   //Special sensors/executors (uses portions of both polling and executor classes)
   static st::S_TimedRelay           sensor8(F("relaySwitch1"), PIN_TIMEDRELAY_1, LOW, false, 3000, 0, 1);
   
   //Executors
-  static st::EX_Alarm executor1(F("alarm1"), PIN_ALARM_1, LOW, true);
+  //static st::EX_Alarm executor1(F("alarm1"), PIN_ALARM_1, LOW, true);
   static st::EX_Switch executor2(F("switch1"), PIN_SWITCH_1, LOW, true);  //Inverted logic for "Active Low" Relay Board
   
   //*****************************************************************************
